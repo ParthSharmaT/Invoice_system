@@ -22,6 +22,8 @@ pillow = "*"
 reportlab = "*"
 html5lib = "*"
 pypdf2 = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
