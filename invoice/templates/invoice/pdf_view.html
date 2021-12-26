@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <br>
+        <h1>Student Name: {{invoice.customer}}</h1>
+        <br>
+        <h2>Total Ammount : {{invoice.total}}</h2>
+        <br>
+        <h1>Gender: {{customer.customer_gender}}</h1>
+        <h1>Email: {{customer.customer_mail}}</h1>
+        
+        <br>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Amount</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in invoice_detail %}
+                            <tr>
+                                <td style="padding: 0.45em;">
+                                    {{i.product}}
+                                </td>
+                                <td style="padding: 0.45em;">
+                                    {{i.product.product_price}}
+                                </td>
+                                <td style="padding: 0.45em;">
+                                    {{i.amount}}
+                                </td>
+                                <td style="padding: 0.45em;">
+                                    {{i.get_total_bill}}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <img src="static/nba.png" height="200px">
+   
+    </body>
+</html>

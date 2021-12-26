@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "*"
+black = "*"
+click = "*"
+colorama = "*"
+django = "*"
+mypy-extensions = "*"
+pathspec = "*"
+platformdirs = "*"
+pytz = "*"
+regex = "*"
+sqlparse = "*"
+tomli = "*"
+typing-extensions = "*"
+xhtml2pdf = "*"
+pillow = "*"
+reportlab = "*"
+html5lib = "*"
+pypdf2 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
