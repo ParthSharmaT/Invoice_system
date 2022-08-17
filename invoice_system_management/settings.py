@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "k4m4wd2cihrtmr#rk5@fvq*0)-bncg^0@6+=#h(#mp9e^*3-)n"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "invoicedoner.herokuapp.com"]
 
