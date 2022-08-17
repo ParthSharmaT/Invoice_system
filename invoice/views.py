@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .models import *
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template, render_to_string
 from xhtml2pdf import context, pisa
+
 # from django.contrib.staticfiles import finders
 # from django.views.generic import ListView
 from .models import Customer
-from django.core.mail import send_mail,EmailMessage
+from django.core.mail import send_mail, EmailMessage
 from invoice_system_management.utils import render_to_pdf
 from django.views.generic import ListView
 
@@ -32,7 +33,7 @@ def create_product(request):
     total_product = Product.objects.count()
     total_customer = Customer.objects.count()
     total_invoice = Invoice.objects.count()
-    
+
     product = ProductForm()
 
     if request.method == "POST":
@@ -317,72 +318,59 @@ def delete_product(request, pk):
 
     return render(request, "invoice/delete_product.html", context)
 
-def customer_render_pdf_view(request,*args,**kwargs):
-    pk=kwargs.get('pk')
+
+def customer_render_pdf_view(request, pk):
     print(pk)
     invoice = Invoice.objects.get(id=pk)
-    invoice_detail = InvoiceDetail.objects.filter(invoice=invoice)
+    invoice_detail = InvoiceDetail.objects.filter(invoice_id=invoice)
+    print(invoice_detail)
+    customer = get_object_or_404(Customer, id=invoice.customer_id)
+    template_path = "invoice/pdf_view.html"
 
-    # invoice=get_object_or_404(Invoice,pk=pk)
-    customer=get_object_or_404(Customer,pk=pk)
-    # invoice_detail=get_object_or_404(InvoiceDetail,pk=pk)
-    # id=kwargs.get('id')
-    # customer=get_object_or_404(Customer,id=id)
-    template_path = 'invoice/pdf_view.html'
-    
-    context = {'invoice':invoice,'customer':customer,'invoice_detail':invoice_detail}
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    #IF DOWNLOAD:
-    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-    #if display:
-    response['Content-Disposition'] = 'filename="report.pdf"'
-   
-    
-    # find the template and render it.
+    context = {
+        "invoice": invoice,
+        "customer": customer,
+        "invoice_detail": invoice_detail,
+    }
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'filename="report.pdf"'
+
     template = get_template(template_path)
     html = template.render(context)
 
-    # create a pdf
-    # pisa_status = pisa.CreatePDF(
-    #    html, dest=response, link_callback=link_callback)
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
-    # if error then show some funy view
+    pisa_status = pisa.CreatePDF(html, dest=response)
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse("We had some errors <pre>" + html + "</pre>")
     return response
 
-#function for mail attachment
+
+# function for mail attachment
 
 
-def mailpdf(request,*args,**kwargs):
-    pk=kwargs.get('pk')
-    invoice=get_object_or_404(Invoice,pk=pk)
-    customer=get_object_or_404(Customer,pk=pk)
-    # invoice_detail=get_object_or_404(InvoiceDetail,pk=pk)
-    invoice_detail=get_object_or_404(InvoiceDetail,pk=pk)
-    
-    
-    context = {'invoice':invoice,'customer':customer,'invoice_detail':InvoiceDetail.objects.filter(id=pk)}
-   
-    subject="E-invoice generated invoice"
-    msg="Here is your Invoice"
-    to=customer.customer_mail
-    print(to)
-    # res=send_mail(subject,msg,EMAIL_HOST_USER,[to])
-    html_template="testmail.html"  
-    html_message=render_to_string(html_template)
-    message=EmailMessage(subject,html_message,settings.EMAIL_HOST_USER,[to]) 
-    
-    # print(pk)
-    # result=customer_render_pdf_mail_view(request,pk)
-    template_path = 'invoice/pdf_view.html'
-    result=render_to_pdf(template_path,context)
-    
+def mailpdf(request, *args, **kwargs):
+    pk = kwargs.get("pk")
+    invoice = Invoice.objects.get(id=pk)
+    invoice_detail = InvoiceDetail.objects.filter(invoice_id=invoice)
+    customer = get_object_or_404(Customer, id=invoice.customer_id)
+
+    context = {
+        "invoice": invoice,
+        "customer": customer,
+        "invoice_detail": invoice_detail,
+    }
+
+    subject = "E-invoice generated invoice"
+    msg = "Here is your Invoice"
+    to = customer.customer_mail
+    html_template = "testmail.html"
+    html_message = render_to_string(html_template)
+    message = EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to])
+
+    template_path = "invoice/pdf_view.html"
+    result = render_to_pdf(template_path, context)
+
     # ress=render_to_pdf(result)
-    message.attach('invoice.pdf',result,'application/pdf')
+    message.attach("invoice.pdf", result, "application/pdf")
     message.content_subtype = "html"
     message.send()
-    return HttpResponse('success')
-
+    return HttpResponse("success")
