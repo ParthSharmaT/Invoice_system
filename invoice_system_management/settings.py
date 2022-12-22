@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import django_on_heroku
+
+# import django_on_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = "k4m4wd2cihrtmr#rk5@fvq*0)-bncg^0@6+=#h(#mp9e^*3-)n"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "invodoner.herokuapp.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -131,4 +132,4 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "invomailing@gmail.com"
 EMAIL_HOST_PASSWORD = "qlyitxidgkeohtvr"
-django_on_heroku.settings(locals())
+# django_on_heroku.settings(locals())
