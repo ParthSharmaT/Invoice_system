@@ -3,3 +3,4 @@ venv/
 invoice/__pycache__/
 invoice_system_management/__pycache__/
 invoice/migrations/__pycache__/
+db.sqlite3
