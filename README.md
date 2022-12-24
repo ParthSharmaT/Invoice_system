@@ -190,6 +190,32 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 
+## Screenshots
+
+### Create products/Facilities:
+
+![Create_Facilities](Create_Facilities.png)
+
+### View and Edit Product/Facilities:
+
+![View_Edit_Facilities](View_Facilities.png)
+
+### Create Recipient to whom you send invoice:
+
+![Create_Recipient](Create_Recipients.png)
+
+### View and Edit Recipient:
+
+![View_and_edit_recipient](View_recipient.png)
+
+### Create Invoice :
+
+![Create_Invoice](Create_Invoice.png)
+
+### View and Edit Invoice:
+
+![View_Edit_Invoice](View_Invoice.png)
+
 ## Maintainers✨
 
 <table>
