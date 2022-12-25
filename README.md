@@ -194,27 +194,27 @@ python3 manage.py migrate
 
 ### Create products/Facilities:
 
-![Create_Facilities](Create_Facilities.png)
+![Create_Facilities](Create_Facilities.webp)
 
 ### View and Edit Product/Facilities:
 
-![View_Edit_Facilities](View_Facilities.png)
+![View_Edit_Facilities](View_Facilities.webp)
 
 ### Create Recipient to whom you send invoice:
 
-![Create_Recipient](Create_Recipients.png)
+![Create_Recipient](Create_Recipients.webp)
 
 ### View and Edit Recipient:
 
-![View_and_edit_recipient](View_recipient.png)
+![View_and_edit_recipient](View_recipient.webp)
 
 ### Create Invoice :
 
-![Create_Invoice](Create_Invoice.png)
+![Create_Invoice](Create_Invoice.webp)
 
 ### View and Edit Invoice:
 
-![View_Edit_Invoice](View_Invoice.png)
+![View_Edit_Invoice](View_Invoice.webp)
 
 ## Maintainers✨
 
